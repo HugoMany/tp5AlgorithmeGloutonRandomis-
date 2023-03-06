@@ -58,16 +58,16 @@ int* matrice::getColumn(int j) {
     }
     return col;
 }
-int main() {
-	ifstream fichier("5villes.txt");
-	string fichierStr;
-	string temp;
-	string nbOfCity;
-	string valueDist;
-	string nameOfCity;
+matrice readingFileCity(){
+    ifstream fichier("5villes.txt");
+    string fichierStr;
+    string temp;
+    string nbOfCity;
+    string valueDist;
+    string nameOfCity;
     vector<string> city;
-    
-	cout << fichier.is_open();
+
+    cout << fichier.is_open();
     fichier >> nbOfCity;
     int intNbCity = stoi(nbOfCity);
 
@@ -85,6 +85,36 @@ int main() {
             matDistance.set(x, y, stoi(valueDist));
         }
     }
-    matDistance.afficher();
+    return matDistance;
+}
+int p2(matrice matDistance, int NbCity) {
+    int idx = 0;
+    int parcours = 0;
+    while (parcours < NbCity)
+    {
+        int idxVilleLaPlusProche;
+        if (idx == 0) idxVilleLaPlusProche = matDistance.get(idx, 1);
+        else idxVilleLaPlusProche = matDistance.get(idx, 0);
 
+        int* Line = matDistance.getLine(idx);
+
+        for (int i = 0; i < NbCity; i++)
+        {
+            if (i != idx)
+            {
+                if (Line[i] < idxVilleLaPlusProche)
+                {
+                    idxVilleLaPlusProche = i;
+                    cout << idxVilleLaPlusProche << endl;
+                }
+            }
+        }
+        parcours++;
+    }
+    return 0;
+}
+
+int main() {
+    matrice matDistance = readingFileCity();
+    matDistance.afficher();
 }

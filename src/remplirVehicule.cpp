@@ -17,13 +17,14 @@ void remplirVehicule::remplir() {
         return a.getVolume() > b.getVolume();
     });
 
-    // Mise en place d'un algorithme glouton
-    for (int i = 0; i < this->colis.size(); i++) {
-        if (this->colis[i].getVolume() <= volume && nbColisMax > 0) {
+    // Mise en place d'un algorithme glouton qui calcule la meilleure solution
+    int i = 0;
+    while (volume > 0 && i < nbColisMax) {
+        if (this->colis[i].getVolume() <= volume) {
             this->colisDansVehicule.push_back(this->colis[i]);
-            volume -= this->colis[i].getVolume();
-            nbColisMax--;
+            volume = volume - this->colis[i].getVolume();
         }
+        i++;
     }
 }
 

@@ -2,6 +2,7 @@
 #define ALGORITHMGLOUTONRANDOMIS_MATRICE_HPP
 
 #include <iostream>
+#include <iomanip>
 
 class matrice {
 public:

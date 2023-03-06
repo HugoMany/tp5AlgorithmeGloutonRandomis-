@@ -9,23 +9,19 @@ remplirVehicule::remplirVehicule(std::vector<colisCapacite> colis, int capacite,
 remplirVehicule::~remplirVehicule() = default;
 
 void remplirVehicule::remplir() {
-    int volume = this->capacite;
-    int nbColisMax = this->nbColis;
 
-    //Trier les colis par volume décroissant
-    std::sort(this->colis.begin(), this->colis.end(), [](colisCapacite a, colisCapacite b) {
-        return a.getVolume() > b.getVolume();
-    });
+    /*
+     * L'algo glouton à faire :
+     * On calcule le ratio poids/benefice de chaque colis
+     * On trie les colis par ratio décroissant
+     * On prend les 2 meilleurs ratio
+     * On select au hasard un des 2
+     * On recommence jusqu'à ce qu'on ait plus de place dans le véhicule
+     *
+     * On fait plusieurs fois l'algo et on garde la meilleure solution
+     */
 
-    // Mise en place d'un algorithme glouton qui calcule la meilleure solution
-    int i = 0;
-    while (volume > 0 && i < nbColisMax) {
-        if (this->colis[i].getVolume() <= volume) {
-            this->colisDansVehicule.push_back(this->colis[i]);
-            volume = volume - this->colis[i].getVolume();
-        }
-        i++;
-    }
+
 }
 
 void remplirVehicule::afficher() {

@@ -16,6 +16,7 @@ public:
     [[nodiscard]] int* getLine(int i);
     [[nodiscard]] int* getColumn(int j);
 
+
 private:
     int n;
     int m;

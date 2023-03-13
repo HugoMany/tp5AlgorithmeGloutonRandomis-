@@ -8,10 +8,14 @@
 #include "colis.hpp"
 
 class remplirVehicule {
-    remplirVehicule(std::vector<colisCapacite> colis, int capacite, int nbColis);
+
+public:
+    remplirVehicule();
     ~remplirVehicule();
+    remplirVehicule(std::vector<colisCapacite> colis, int capacite, int nbColis);
     void remplir();
     void afficher();
+
 private:
     std::vector<colisCapacite> colis;
     int capacite;

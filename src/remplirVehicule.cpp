@@ -75,3 +75,8 @@ void remplirVehicule::afficher() {
         std::cout << "Colis " << i << " : " << this->colisDansVehicule[i].getVolume() << " " << this->colisDansVehicule[i].getBenefice() << std::endl;
     }
 }
+
+remplirVehicule::remplirVehicule() {
+    this->capacite = 0;
+    this->nbColis = 0;
+}

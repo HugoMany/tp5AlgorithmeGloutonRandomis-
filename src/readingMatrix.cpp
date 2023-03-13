@@ -114,7 +114,7 @@ int p2(matrice matDistance, int NbCity) {
     return 0;
 }
 
-int main() {
-    matrice matDistance = readingFileCity();
-    matDistance.afficher();
-}
+//int main() {
+//    matrice matDistance = readingFileCity();
+//    matDistance.afficher();
+//}

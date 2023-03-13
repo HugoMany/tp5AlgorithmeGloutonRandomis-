@@ -89,7 +89,7 @@ vector<colisCapacite> recupColis() {
     infoColisMax test2;
 
     //Variable utile pour la récupération des fichiers
-    ifstream fichier("C:/Users/maxen/OneDrive/Documents/5colis30capacite.txt");
+    ifstream fichier("5colis30capacite.txt");
     string ligne;
     string tmp;
     int compteur = 0;

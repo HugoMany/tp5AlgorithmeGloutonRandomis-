@@ -1,3 +1,4 @@
+#include <cmath>
 #include "remplirVehicule.hpp"
 
 remplirVehicule::remplirVehicule(std::vector<colisCapacite> colis, int capacite, int nbColis) {
@@ -15,7 +16,45 @@ void remplirVehicule::remplir() {
     }
 
     sort(ratio.begin(), ratio.end(), std::greater<>());
-
+    int i = 0;
+    while (this->nbColis > 0 && ratio.size() >= 2 && (this->capacite >= this->colis[i].getVolume() || this->capacite >= this->colis[i + 1].getVolume())) {
+        int random = rand() % 2;
+        if (random == 0 && this->capacite >= this->colis[i].getVolume()) {
+            this->colisDansVehicule.push_back(this->colis[0]);
+            ratio.erase(ratio.begin());
+            ratio.erase(ratio.begin()+1);
+            this->colis.erase(this->colis.begin());
+            this->colis.erase(this->colis.begin()+1);
+            this->nbColis--;
+            this->capacite -= this->colis[i].getVolume();
+        }
+        else{
+            if (this->capacite >= this->colis[i+1].getVolume()) {
+                this->colisDansVehicule.push_back(this->colis[1]);
+                ratio.erase(ratio.begin());
+                ratio.erase(ratio.begin()+1);
+                this->colis.erase(this->colis.begin());
+                this->colis.erase(this->colis.begin()+1);
+                this->nbColis--;
+                this->capacite -= this->colis[i + 1].getVolume();
+            } else {
+                this->colisDansVehicule.push_back(this->colis[0]);
+                ratio.erase(ratio.begin());
+                ratio.erase(ratio.begin()+1);
+                this->colis.erase(this->colis.begin());
+                this->colis.erase(this->colis.begin()+1);
+                this->nbColis--;
+                this->capacite -= this->colis[i].getVolume();
+            }
+        }
+        i++;
+    }
+    if (ratio.size() == 1){
+        this->colisDansVehicule.push_back(this->colis[0]);
+        this->colis.erase(this->colis.begin());
+        this->nbColis--;
+        this->capacite -= this->colis[0].getVolume();
+    }
     /*
      * L'algo glouton à faire :
      * On calcule le ratio poids/benefice de chaque colis

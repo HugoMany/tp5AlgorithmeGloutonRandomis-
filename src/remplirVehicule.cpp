@@ -9,6 +9,12 @@ remplirVehicule::remplirVehicule(std::vector<colisCapacite> colis, int capacite,
 remplirVehicule::~remplirVehicule() = default;
 
 void remplirVehicule::remplir() {
+    std::vector<float> ratio;
+    for (auto colis : this->colis) {
+        ratio.push_back((float) colis.getBenefice() / (float) colis.getVolume());
+    }
+
+    sort(ratio.begin(), ratio.end(), std::greater<>());
 
     /*
      * L'algo glouton à faire :

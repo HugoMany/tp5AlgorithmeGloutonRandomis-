@@ -5,7 +5,7 @@
 #include <utility>
 #include <algorithm>
 #include <iostream>
-#include "protoColisCapacite.hpp"//À Modifier quand on aura la classe
+#include "colis.hpp"
 
 class remplirVehicule {
     remplirVehicule(std::vector<colisCapacite> colis, int capacite, int nbColis);

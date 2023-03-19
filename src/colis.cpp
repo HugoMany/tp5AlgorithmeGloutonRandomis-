@@ -6,12 +6,11 @@ struct infoColisMax recupColisMax();
 
 vector<colisCapacite> recupColis();
 
+/*
 int main()
 {
-    vector<colisCapacite> colis;
-    infoColisMax colisMax;
-    colis = recupColis();
-    colisMax = recupColisMax();
+    vector<colisCapacite> colis = recupColis();
+    infoColisMax colisMax = recupColisMax();
     cout << "Le volume max du camion est : " << colisMax.volumeMax << endl;
     cout << "Le nombre de colis max du camion est : " << colisMax.colisMax << endl;
 
@@ -20,6 +19,7 @@ int main()
     }
     return 0;
 }
+*/
 
 struct infoColisMax recupColisMax() {
     //Variable utile pour la suite
@@ -28,8 +28,8 @@ struct infoColisMax recupColisMax() {
     int nombreColisMax;
     infoColisMax test2;
 
-    //Variable utile pour la récupération des fichiers
-    ifstream fichier("C:/Users/maxen/OneDrive/Documents/5colis30capacite.txt");
+    //Variable utile pour la rÃ©cupÃ©ration des fichiers
+    ifstream fichier("5colis30capacite.txt");
     string ligne;
     string tmp;
     int compteur = 0;
@@ -43,14 +43,14 @@ struct infoColisMax recupColisMax() {
             for (int i = 0; i < ligne.size(); i++) {
                 tmp += ligne[i];
                 if (compteur2 == 1) {
-                    volumeMax += stoi(tmp);
+                    nombreColisMax += stoi(tmp);
                     tmp = "";
                     compteur2 = 0;
                     test2.volumeMax = volumeMax;
                     test2.colisMax = nombreColisMax;
                 }
                 if (ligne[i] == 32) {
-                    nombreColisMax = stoi(tmp);
+                    volumeMax = stoi(tmp);
                     compteur2++;
                     tmp = "";
                 }
@@ -76,7 +76,7 @@ struct infoColisMax recupColisMax() {
             }
         }
         compteur++;
-    } while (ligne != "");  // tant que l'on peut mettre la ligne dans "contenu"
+    } while (!ligne.empty());  // tant que l'on peut mettre la ligne dans "contenu"
 
     return test2;
 }
@@ -88,8 +88,8 @@ vector<colisCapacite> recupColis() {
     int nombreColisMax;
     infoColisMax test2;
 
-    //Variable utile pour la récupération des fichiers
-    ifstream fichier("C:/Users/maxen/OneDrive/Documents/5colis30capacite.txt");
+    //Variable utile pour la rÃ©cupÃ©ration des fichiers
+    ifstream fichier("5colis30capacite.txt");
     string ligne;
     string tmp;
     int compteur = 0;
@@ -100,8 +100,8 @@ vector<colisCapacite> recupColis() {
     do {
         getline(fichier, ligne);
         if (compteur == 0) {
-            for (int i = 0; i < ligne.size(); i++) {
-                tmp += ligne[i];
+            for (char i : ligne) {
+                tmp += i;
                 if (compteur2 == 1) {
                     volumeMax += stoi(tmp);
                     tmp = "";
@@ -109,7 +109,7 @@ vector<colisCapacite> recupColis() {
                     test2.volumeMax = volumeMax;
                     test2.colisMax = nombreColisMax;
                 }
-                if (ligne[i] == 32) {
+                if (i == 32) {
                     nombreColisMax = stoi(tmp);
                     compteur2++;
                     tmp = "";
@@ -136,7 +136,20 @@ vector<colisCapacite> recupColis() {
             }
         }
         compteur++;
-    } while (ligne != "");  // tant que l'on peut mettre la ligne dans "contenu"
+    } while (!ligne.empty());  // tant que l'on peut mettre la ligne dans "contenu"
 
     return test;
+}
+
+int colisCapacite::getVolume() {
+    return this->volume;
+}
+
+int colisCapacite::getBenefice() {
+    return this->benefice;
+}
+
+colisCapacite::colisCapacite(int volume, int benefice) {
+    this->volume = volume;
+    this->benefice = benefice;
 }

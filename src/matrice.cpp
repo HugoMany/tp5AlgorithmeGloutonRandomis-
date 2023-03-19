@@ -9,12 +9,7 @@ matrice::matrice(int n, int m) {
     }
 }
 
-matrice::~matrice() {
-    for (int i = 0; i < this->n; i++) {
-        delete[] this->mat[i];
-    }
-    delete[] this->mat;
-}
+matrice::~matrice() = default;
 
 int matrice::get(int i, int j) {
     return this->mat[i][j];

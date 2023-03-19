@@ -6,30 +6,15 @@ struct infoColisMax recupColisMax();
 
 vector<colisCapacite> recupColis();
 
-
-int main()
-{
-    vector<colisCapacite> colis = recupColis();
-    infoColisMax colisMax = recupColisMax();
-    cout << "Le volume max du camion est : " << colisMax.volumeMax << endl;
-    cout << "Le nombre de colis max du camion est : " << colisMax.colisMax << endl;
-
-    for (int i = 0; i < colis.size(); i++) {
-        cout << "Nombre de colis : " << colis[i].getVolume() << "Benefice des colis : " << colis[i].getBenefice() << endl;
-    }
-    return 0;
-}
-
-
-struct infoColisMax recupColisMax() {
+struct infoColisMax recupColisMax(string path) {
     //Variable utile pour la suite
     vector<colisCapacite> test;
     int volumeMax = 0;
     int nombreColisMax;
     infoColisMax test2;
 
-    //Variable utile pour la récupération des fichiers
-    ifstream fichier("5colis30capacite.txt");
+    ifstream fichier(path);
+
     string ligne;
     string tmp;
     int compteur = 0;
@@ -43,7 +28,7 @@ struct infoColisMax recupColisMax() {
             for (int i = 0; i < ligne.size(); i++) {
                 tmp += ligne[i];
                 if (compteur2 == 1) {
-                    nombreColisMax += stoi(tmp);
+                    nombreColisMax = stoi(tmp);
                     tmp = "";
                     compteur2 = 0;
                     test2.volumeMax = volumeMax;

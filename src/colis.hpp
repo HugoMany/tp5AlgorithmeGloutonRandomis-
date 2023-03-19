@@ -23,5 +23,5 @@ struct infoColisMax {
 	int colisMax;
 };
 
-struct infoColisMax recupColisMax();
+struct infoColisMax recupColisMax(std::string path);
 std::vector<colisCapacite> recupColis();

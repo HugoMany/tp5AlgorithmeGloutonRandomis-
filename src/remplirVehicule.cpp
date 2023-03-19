@@ -22,6 +22,7 @@ void remplirVehicule::remplir() {
 
     int i = 0;
     while (this->nbColis > 0 && ratio.size() >= 2 && (this->capacite >= ratio[i].second.getVolume() || this->capacite >= ratio[i + 1].second.getVolume())) {
+
         int random = rand() % 2;
         if (random == 0) {
             this->colisDansVehicule.push_back(ratio[0].second);

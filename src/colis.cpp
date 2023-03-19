@@ -2,10 +2,11 @@
 
 using namespace std;
 
-struct infoColisMax recupColisMax();
+//Déclaration des fonctions.
+struct infoColisMax recupColisMax(); //Fonction pour les données du camion
+vector<colisCapacite> recupColis(); //Fonction pour les données des objets
 
-vector<colisCapacite> recupColis();
-
+//Définition des fonctions
 struct infoColisMax recupColisMax(string path) {
     //Variable utile pour la suite
     vector<colisCapacite> test;
@@ -13,8 +14,8 @@ struct infoColisMax recupColisMax(string path) {
     int nombreColisMax;
     infoColisMax test2;
 
-    ifstream fichier(path);
-
+    //Variable utile pour la récupération des fichiers
+    ifstream fichier(path); //chemin du fichier pour les donnes
     string ligne;
     string tmp;
     int compteur = 0;
@@ -22,6 +23,12 @@ struct infoColisMax recupColisMax(string path) {
     int index;
     int volume = 0;
     int benefice = 0;
+
+    /*
+    Ce do va prendre ligne par ligne les informations du fichier
+    Pour la première ligne, il va récupérer les informations max du camion
+    Pour les autres lignes, il va récupérer la conso ainsi que les bénéfices des objets
+    */
     do {
         getline(fichier, ligne);
         if (compteur == 0) {
@@ -60,12 +67,11 @@ struct infoColisMax recupColisMax(string path) {
                 }
             }
         }
-        compteur++;
+        compteur++; 
     } while (!ligne.empty());  // tant que l'on peut mettre la ligne dans "contenu"
 
-    return test2;
+    return test2; // Renvoi la structure contenant les données du camion
 }
-
 vector<colisCapacite> recupColis() {
     //Variable utile pour la suite
     vector<colisCapacite> test;
@@ -82,6 +88,12 @@ vector<colisCapacite> recupColis() {
     int index;
     int volume = 0;
     int benefice = 0;
+
+    /*
+    Ce do va prendre ligne par ligne les informations du fichier
+    Pour la première ligne, il va récupérer les informations max du camion
+    Pour les autres lignes, il va récupérer la conso ainsi que les bénéfices des objets
+    */
     do {
         getline(fichier, ligne);
         if (compteur == 0) {
@@ -123,17 +135,16 @@ vector<colisCapacite> recupColis() {
         compteur++;
     } while (!ligne.empty());  // tant que l'on peut mettre la ligne dans "contenu"
 
-    return test;
+    return test; //Renvoi le vecteur de classe colisCapacite contenant tout les objets et leurs informations.
 }
 
+//Méthode de la classe colisCapacité
 int colisCapacite::getVolume() {
     return this->volume;
 }
-
 int colisCapacite::getBenefice() {
     return this->benefice;
 }
-
 colisCapacite::colisCapacite(int volume, int benefice) {
     this->volume = volume;
     this->benefice = benefice;

@@ -10,50 +10,39 @@ remplirVehicule::remplirVehicule(std::vector<colisCapacite> colis, int capacite,
 remplirVehicule::~remplirVehicule() = default;
 
 void remplirVehicule::remplir() {
-    std::vector<float> ratio;
-    for (auto colis : this->colis) {
-        ratio.push_back((float) colis.getBenefice() / (float) colis.getVolume());
+    std::vector<std::pair<float, colisCapacite>> ratio;
+    for (auto colis_ : this->colis) {
+        ratio.push_back(std::make_pair((float)colis_.getBenefice() / (float)colis_.getVolume(), colis_));
     }
 
-    sort(ratio.begin(), ratio.end(), std::greater<>());
+    //Trier la le vecteur ratio par ordre décroissant
+    std::sort(ratio.begin(), ratio.end(), [](const std::pair<float, colisCapacite> &a, const std::pair<float, colisCapacite> &b) {
+        return a.first > b.first;
+    });
+
     int i = 0;
-    while (this->nbColis > 0 && ratio.size() >= 2 && (this->capacite >= this->colis[i].getVolume() || this->capacite >= this->colis[i + 1].getVolume())) {
+    while (this->nbColis > 0 && ratio.size() >= 2 && (this->capacite >= ratio[i].second.getVolume() || this->capacite >= ratio[i + 1].second.getVolume())) {
         int random = rand() % 2;
-        if (random == 0 && this->capacite >= this->colis[i].getVolume()) {
-            this->colisDansVehicule.push_back(this->colis[0]);
+        if (random == 0) {
+            this->colisDansVehicule.push_back(ratio[0].second);
             ratio.erase(ratio.begin());
             ratio.erase(ratio.begin()+1);
-            this->colis.erase(this->colis.begin());
-            this->colis.erase(this->colis.begin()+1);
             this->nbColis--;
-            this->capacite -= this->colis[i].getVolume();
+            this->capacite -= ratio[i].second.getVolume();
         }
         else{
-            if (this->capacite >= this->colis[i+1].getVolume()) {
-                this->colisDansVehicule.push_back(this->colis[1]);
-                ratio.erase(ratio.begin());
-                ratio.erase(ratio.begin()+1);
-                this->colis.erase(this->colis.begin());
-                this->colis.erase(this->colis.begin()+1);
-                this->nbColis--;
-                this->capacite -= this->colis[i + 1].getVolume();
-            } else {
-                this->colisDansVehicule.push_back(this->colis[0]);
-                ratio.erase(ratio.begin());
-                ratio.erase(ratio.begin()+1);
-                this->colis.erase(this->colis.begin());
-                this->colis.erase(this->colis.begin()+1);
-                this->nbColis--;
-                this->capacite -= this->colis[i].getVolume();
-            }
+            this->colisDansVehicule.push_back(ratio[1].second);
+            ratio.erase(ratio.begin());
+            ratio.erase(ratio.begin()+1);
+            this->nbColis--;
+            this->capacite -= ratio[i].second.getVolume();
         }
         i++;
     }
     if (ratio.size() == 1){
-        this->colisDansVehicule.push_back(this->colis[0]);
-        this->colis.erase(this->colis.begin());
+        this->colisDansVehicule.push_back(ratio[0].second);
         this->nbColis--;
-        this->capacite -= this->colis[0].getVolume();
+        this->capacite -= ratio[0].second.getVolume();
     }
     /*
      * L'algo glouton à faire :

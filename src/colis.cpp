@@ -29,7 +29,7 @@ struct infoColisMax recupColisMax() {
     infoColisMax test2;
 
     //Variable utile pour la récupération des fichiers
-    ifstream fichier("C:/Users/maxen/OneDrive/Documents/5colis30capacite.txt");
+    ifstream fichier("5colis30capacite.txt");
     string ligne;
     string tmp;
     int compteur = 0;
@@ -43,14 +43,14 @@ struct infoColisMax recupColisMax() {
             for (int i = 0; i < ligne.size(); i++) {
                 tmp += ligne[i];
                 if (compteur2 == 1) {
-                    volumeMax += stoi(tmp);
+                    nombreColisMax += stoi(tmp);
                     tmp = "";
                     compteur2 = 0;
                     test2.volumeMax = volumeMax;
                     test2.colisMax = nombreColisMax;
                 }
                 if (ligne[i] == 32) {
-                    nombreColisMax = stoi(tmp);
+                    volumeMax = stoi(tmp);
                     compteur2++;
                     tmp = "";
                 }
@@ -89,7 +89,7 @@ vector<colisCapacite> recupColis() {
     infoColisMax test2;
 
     //Variable utile pour la récupération des fichiers
-    ifstream fichier("C:/Users/maxen/OneDrive/Documents/5colis30capacite.txt");
+    ifstream fichier("5colis30capacite.txt");
     string ligne;
     string tmp;
     int compteur = 0;

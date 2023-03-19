@@ -1,6 +1,9 @@
+#include <random>
 #include "remplirVehicule.hpp"
 #include "matrice.hpp"
 #include "readingMatrix.hpp"
+
+using namespace std;
 
 int main(int argc, char *argv[]){
     srand(stoi(argv[1]));

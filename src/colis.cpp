@@ -6,7 +6,7 @@ struct infoColisMax recupColisMax();
 
 vector<colisCapacite> recupColis();
 
-/*
+
 int main()
 {
     vector<colisCapacite> colis = recupColis();
@@ -19,7 +19,7 @@ int main()
     }
     return 0;
 }
-*/
+
 
 struct infoColisMax recupColisMax() {
     //Variable utile pour la suite

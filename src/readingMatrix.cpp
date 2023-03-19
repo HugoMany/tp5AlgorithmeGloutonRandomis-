@@ -7,28 +7,27 @@
 using namespace std;
 
 
-matrice readingFileCity(){
-    ifstream fichier("5villes.txt");
+matrice readingFileCity(vector<string> *city, int &nbOfCity) {
+    ifstream fichier("4villes.txt");
     string fichierStr;
     string temp;
-    string nbOfCity;
+    string stringNbOfCity;
     string valueDist;
     string nameOfCity;
-    vector<string> city;
 
-    cout << fichier.is_open() << endl;
-    fichier >> nbOfCity;
-    int intNbCity = stoi(nbOfCity);
+    cout << "? Fichier ouvert : " << fichier.is_open() << "\n" << endl;
+    fichier >> stringNbOfCity;
+    nbOfCity = stoi(stringNbOfCity);
 
-    matrice matDistance(intNbCity, intNbCity);
-    for (int i = 0; i < intNbCity; i++)
+    matrice matDistance(nbOfCity, nbOfCity);
+    for (int i = 0; i < nbOfCity; i++)
     {
         fichier >> nameOfCity;
-        city.push_back(nameOfCity);
+        city->push_back(nameOfCity);
     }
-    for (int x = 0; x < intNbCity; x++)
+    for (int x = 0; x < nbOfCity; x++)
     {
-        for (int y = 0; y < intNbCity; y++)
+        for (int y = 0; y < nbOfCity; y++)
         {
             fichier >> valueDist;
             matDistance.set(x, y, stoi(valueDist));
@@ -37,7 +36,7 @@ matrice readingFileCity(){
     return matDistance;
 }
 
-vector<int> randBestRoute(matrice matDistance, int NbCity) {
+vector<int> randBestRoute(matrice matDistance, int NbCity, int &energieConso) {
     int nbParcouru = 0;
     int previous = 0;
     vector<int> parcours; // Vecteur qui contient les index des villes à parcourir dans l'ordre
@@ -95,6 +94,8 @@ vector<int> randBestRoute(matrice matDistance, int NbCity) {
         if (randChoixVille == 1) idxVilleLaPlusProcheRand = idxVilleLaPlusProche1; // On ira à la ville la plus proche
         else idxVilleLaPlusProcheRand = idxVilleLaPlusProche2; // On ira à la deuxième ville la plus proche
         
+        energieConso += Line[idxVilleLaPlusProcheRand];
+
         parcours.push_back(idxVilleLaPlusProcheRand); // On ajoute la ville choisi au vecteur
         isTraveled[idxVilleLaPlusProcheRand] = 1; // On dit que cette ville à déjà été parcouru
         previous = idxVilleLaPlusProcheRand; // On retient dans quelle ville on est pour la suite
@@ -105,15 +106,20 @@ vector<int> randBestRoute(matrice matDistance, int NbCity) {
 
 
 int main() {
-    matrice matDistance = readingFileCity();
+    vector<string> city;
+    int nbOfCity = 0;
+    int energieConso = 0;
+
+    matrice matDistance = readingFileCity(&city, nbOfCity);
     matDistance.afficher();
-    for (int j = 0; j < 10; j++) {
-        vector<int> meilleurParcours = randBestRoute(matDistance, 5);
-        for (int i = 0; i < meilleurParcours.size(); i++)
-        {
-            cout << meilleurParcours[i];
-        }
-        cout << endl;
+    cout << endl;
+
+    vector<int> meilleurParcours = randBestRoute(matDistance, nbOfCity, energieConso);
+    for (int i = 0; i < meilleurParcours.size(); i++)
+    {
+        cout << city[meilleurParcours[i]] << " "; // Affichage de la route
     }
+    cout << ": " << energieConso << " d'energie consomme" << endl; // Affichage de l'énergie consommé
+
     return 0;
 }

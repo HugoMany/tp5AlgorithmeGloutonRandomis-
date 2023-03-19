@@ -6,20 +6,20 @@ struct infoColisMax recupColisMax();
 
 vector<colisCapacite> recupColis();
 
-int main()
-{
-    vector<colisCapacite> colis;
-    infoColisMax colisMax;
-    colis = recupColis();
-    colisMax = recupColisMax();
-    cout << "Le volume max du camion est : " << colisMax.volumeMax << endl;
-    cout << "Le nombre de colis max du camion est : " << colisMax.colisMax << endl;
-
-    for (int i = 0; i < colis.size(); i++) {
-        cout << "Nombre de colis : " << colis[i].getVolume() << "Benefice des colis : " << colis[i].getBenefice() << endl;
-    }
-    return 0;
-}
+//int main()
+//{
+//    vector<colisCapacite> colis;
+//    infoColisMax colisMax;
+//    colis = recupColis();
+//    colisMax = recupColisMax();
+//    cout << "Le volume max du camion est : " << colisMax.volumeMax << endl;
+//    cout << "Le nombre de colis max du camion est : " << colisMax.colisMax << endl;
+//
+//    for (int i = 0; i < colis.size(); i++) {
+//        cout << "Nombre de colis : " << colis[i].getVolume() << "Benefice des colis : " << colis[i].getBenefice() << endl;
+//    }
+//    return 0;
+//}
 
 struct infoColisMax recupColisMax() {
     //Variable utile pour la suite
